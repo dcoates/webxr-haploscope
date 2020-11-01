@@ -108,7 +108,7 @@ function simulatedDraw(time, frame) {
      let nvw; let nvh;
 
       // https://medium.com/@michelfariarj/scale-a-pixi-js-game-to-fit-the-screen-1a32f8730e9c
-      if (vph / vpw < phone_height / phone_width) {
+      if (vph / vpw < phone_height / phone_width/2.0) {
         // If height-to-width ratio of the viewport is less than the height-to-width ratio
         // of the game, then the height will be equal to the height of the viewport, and
         // the width will be scaled.
@@ -116,7 +116,7 @@ function simulatedDraw(time, frame) {
         nvw = (nvh * phone_width) / phone_height;
       } else {
         // In the else case, the opposite is happening.
-        nvw = vpw;
+        nvw = vpw/2.0;
         nvh = (nvw * phone_height) / phone_width;
       }
 
