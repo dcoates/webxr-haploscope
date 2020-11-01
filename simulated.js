@@ -2,12 +2,12 @@ const SESSION_TYPE = "immersive-vr";       // "immersive-vr" or "inline"
 //const SESSION_TYPE = "inline";
 
 // PIXIJS : New DRC
-let app=null;
-let graphicsL;
-let graphicsR;
+let app2=null;
+let graphicsL2;
+let graphicsR2;
 let graphicsVline;
-let containerL;
-let containerR;
+let containerL2;
+let containerR2;
 
 window.addEventListener("load", onLoad);
 
@@ -17,16 +17,15 @@ function onLoad() {
   //setupXRButton();
 
   pixi_stereoSetup();
-
-  console.log("Simulated Alive");
 }
 
 const phone_width=1598; // for simulation
 const phone_height=1514;
 
 function pixi_stereoSetup() {
+  //let canvas = document.getElementById("canvas2");
   let canvas = document.querySelector("canvas");
-  //gl = canvas.getContext("webgl", { xrCompatible: true });
+  var gl = canvas.getContext("webgl", { xrCompatible: true });
 
   // DRC's Samsung S8+
   //const width=1598/2.0;
@@ -35,50 +34,50 @@ function pixi_stereoSetup() {
   const height=document.body.scrollHeight;
 
   // Default width is 800x600. Make twice as wide
-  app=new PIXI.Application({antialias: true, backgroundColor:0x000000, view: canvas, width:phone_width, height:phone_height});
-  document.pixi=app;
-  //document.body.appendChild(app.view);
+  app2=new PIXI.Application({antialias: true, backgroundColor:0x000000, view: canvas, width:phone_width, height:phone_height});
+  document.pixi=app2;
+  //document.body.app2endChild(app2.view);
 
-  console.log(app.screen.width);
-  console.log(app.screen.height);
+  console.log(app2.screen.width);
+  console.log(app2.screen.height);
   console.log(width);
 
-  containerL=new PIXI.Container();
-      //containerL.x=width;
-      //containerL.y=0;
-      //containerL.width=width;
-      //containerL.height=height;
+  containerL2=new PIXI.Container();
+      //containerL2.x=width;
+      //containerL2.y=0;
+      //containerL2.width=width;
+      //containerL2.height=height;
 
-  //console.log(containerL.width);
-  //console.log(containerL.height);
+  //console.log(containerL2.width);
+  //console.log(containerL2.height);
 
 
-  graphicsL=new PIXI.Graphics();
-  containerL.addChild(graphicsL);
+  graphicsL2=new PIXI.Graphics();
+  containerL2.addChild(graphicsL2);
 
-  //console.log(height, height/2.0, containerL.height);
+  //console.log(height, height/2.0, containerL2.height);
 
-  //drawLeft(graphicsL,0,height);
-  //app.stage.addChild(graphicsL);
+  //drawLeft(graphicsL2,0,height);
+  //app2.stage.addChild(graphicsL2);
 
-  containerR=new PIXI.Container();
+  containerR2=new PIXI.Container();
 
-  graphicsR=new PIXI.Graphics();
-  containerR.addChild(graphicsR);
+  graphicsR2=new PIXI.Graphics();
+  containerR2.addChild(graphicsR2);
 
-  app.stage.addChild(containerR);
-  app.stage.addChild(containerL);
-  //drawRight(graphicsR,width,height);
+  app2.stage.addChild(containerR2);
+  app2.stage.addChild(containerL2);
+  //drawRight(graphicsR2,width,height);
 
   // DEBUG
-  document.containerL=containerL;
-  document.containerR=containerR;
-  document.graphicsL=graphicsL;
-  document.graphicsR=graphicsR;
+  document.containerL2=containerL2;
+  document.containerR2=containerR2;
+  document.graphicsL2=graphicsL2;
+  document.graphicsR2=graphicsR2;
 
   graphicsVline=new PIXI.Graphics();
 
-  app.stage.addChild(graphicsVline);
+  app2.stage.addChild(graphicsVline);
 
   simulatedDraw();
 }
@@ -99,6 +98,7 @@ function sessionEnded() {
 let lastFrameTime = 0;
 function simulatedDraw(time, frame) {
   let canvas = document.querySelector("canvas");
+  //let canvas = document.getElementById("canvas2");
 
       let middle_x=canvas.width/2.0;
       let height=canvas.height;
@@ -115,30 +115,30 @@ function simulatedDraw(time, frame) {
         nvh = vph;
         nvw = (nvh * phone_width) / phone_height;
       } else {
-        // In the else case, the opposite is happening.
+        // In the else case, the opposite is happ2ening.
         nvw = vpw/2.0;
         nvh = (nvw * phone_height) / phone_width;
       }
 
-      containerL.x=0;
-      containerR.x=middle_x;
+      containerL2.x=0;
+      containerR2.x=middle_x;
 
-      graphicsL.clear();
-      drawLeft(graphicsL,canvas.width/2.0,canvas.height);
-      graphicsR.clear();
+      graphicsL2.clear();
+      drawLeft(graphicsL2,canvas.width/2.0,canvas.height);
+      graphicsR2.clear();
 
       // Draw vertical line in middle
       graphicsVline.lineStyle(4, 0xffff00, 1);
       graphicsVline.moveTo(middle_x, 0);
       graphicsVline.lineTo(middle_x, height);
 
-      drawRight(graphicsR,canvas.width/2.0,canvas.height);
-      app.renderer.render(app.stage);
+      drawRight(graphicsR2,canvas.width/2.0,canvas.height);
+      app2.renderer.render(app2.stage);
 
       console.log(nvw,nvh,phone_width,phone_height);
 
-      app.renderer.resize(nvw, nvh);
-      app.stage.scale.set(nvw/phone_width,nvh/phone_height);
-      //app.stage.scale.set(0.5,0.5);
+      app2.renderer.resize(nvw, nvh);
+      app2.stage.scale.set(nvw/phone_width,nvh/phone_height);
+      //app2.stage.scale.set(0.5,0.5);
 }
 
