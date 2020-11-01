@@ -20,7 +20,7 @@ function onLoad() {
 }
 
 const phone_width=1598; // for simulation
-const phone_height=1514;
+const phone_height=1514/2.0;
 
 function pixi_stereoSetup() {
   //let canvas = document.getElementById("canvas2");
