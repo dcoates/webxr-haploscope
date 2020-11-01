@@ -3,7 +3,10 @@ const SESSION_TYPE = "immersive-vr";       // "immersive-vr" or "inline"
 
 // PIXIJS : New DRC
 let app=null;
+let graphicsL;
 let graphicsR;
+let containerL;
+let containerR;
 
 // WebXR variables
 
@@ -159,30 +162,40 @@ function sessionStarted(session) {
 
   console.log(app.screen.width);
   console.log(app.screen.height);
+  console.log(width);
 
-  //const containerL=new PIXI.Container();
-  //containerL.x=0;
-  //containerL.y=0;
-  //containerL.width=width/2;
-  //containerL.height=height/2;
-  //app.stage.addChild(containerL);
+  containerL=new PIXI.Container();
+      //containerL.x=width;
+      //containerL.y=0;
+      //containerL.width=width;
+      //containerL.height=height;
+
+  //console.log(containerL.width);
+  //console.log(containerL.height);
+
+
+  graphicsL=new PIXI.Graphics();
+  containerL.addChild(graphicsL);
 
   //console.log(height, height/2.0, containerL.height);
 
-  //const graphicsL=new PIXI.Graphics();
   //drawLeft(graphicsL,0,height);
   //app.stage.addChild(graphicsL);
 
-  //const containerR=new PIXI.Container();
-  //containerR.x=width/2;
-  //containerR.y=0;
-  //containerR.width=width/2;
-  //containerR.height=height/2;
+  containerR=new PIXI.Container();
 
   graphicsR=new PIXI.Graphics();
-  app.stage.addChild(graphicsR);
+  containerR.addChild(graphicsR);
 
-  drawRight(graphicsR,width,height);
+  app.stage.addChild(containerR);
+  app.stage.addChild(containerL);
+  //drawRight(graphicsR,width,height);
+
+// DEBUG
+document.containerL=containerL;
+document.containerR=containerR;
+document.graphicsL=graphicsL;
+document.graphicsR=graphicsR;
 
   return xrSession;
 }
@@ -248,6 +261,13 @@ function drawFrame(time, frame) {
       gl.canvas.width = viewport.width * 1.0; //pose.views.length;
       gl.canvas.height = viewport.height;
 
+      containerL.width=100; // this works to scale width (1/2), not sure why
+      containerL.x=0;
+      containerR.width=100; // this works to scale width, not sure why
+      containerR.x=viewport.width/2.0;
+
+      graphicsL.clear();
+      drawLeft(graphicsL,viewport.width,viewport.height);
       graphicsR.clear();
       drawRight(graphicsR,viewport.width,viewport.height);
       app.renderer.render(app.stage)

@@ -11,32 +11,33 @@
     <script src="./gl-matrix.js"></script>
     <script src="./webxr-haploscope.js" type="module" defer></script>
 
-    <script> 
+    <script>
+	// global "const" variables
+	//const square_height=100; 
+	//const square_width=100;
+	//graphics.drawRect(400,ctr_y,square_width,square_height);
+
+	const circle_radius=100;
+
 	function drawLeft(graphics, x,y ) {
-  			// Circle
+			ctr_x=x/2; // x and y are height and width of view, resp.
+			ctr_y=y/2;
+
+  			// Left Circle (Green)
   			graphics.lineStyle(1); // style of outline
-  			graphics.beginFill(0xff0000, 1);
-  			graphics.drawCircle(3000,1000,300); //container.width/2, container.height/2, 300);
+  			graphics.beginFill(0x00ff00, 1); // GREEN
+  			graphics.drawCircle(ctr_x,ctr_y,circle_radius);
   			graphics.endFill();
 		}
 
 	function drawRight(graphics, x,y) {
-  			// Circle
-  			graphics.lineStyle(1); // style of outline
-  			graphics.beginFill(0x00ff00, 1);
-			hi=100;
-			wid=50;
-			topp=400;
-			side=400;
-  			graphics.drawRect(side+40,topp,wid,hi);
-  			graphics.endFill();
+			var ctr_x=x/2; // x and y are height and width of view, resp.
+			var ctr_y=y/2;
 
-			xoff=x/2.0;
-
-  			// Circle
+  			// Right Circle (Red)
   			graphics.lineStyle(1); // style of outline
-  			graphics.beginFill(0xff0000, 1);
-  			graphics.drawRect(side+xoff,topp,wid,hi);
+  			graphics.beginFill(0xff0000, 1); // RED
+  			graphics.drawCircle(ctr_x,ctr_y,circle_radius);
   			graphics.endFill();
 		}
     </script>
